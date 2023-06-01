@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLBMTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="bID" />
+          </Key>
+          <Property Name="bID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="cID" Type="char" MaxLength="6" />
+          <Property Name="eID" Type="char" MaxLength="6" />
+          <Property Name="bBUY_Date" Type="date" />
+          <Property Name="bTotalPrice" Type="int" />
+        </EntityType>
+        <EntityType Name="Bill_Product_Detail">
+          <Key>
+            <PropertyRef Name="bID" />
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="bID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="pID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="bpPrice" Type="int" />
+          <Property Name="bpQuantity_Product" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="cID" />
+          </Key>
+          <Property Name="cID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="cName" Type="char" MaxLength="50" />
+          <Property Name="cPhoneNum" Type="char" MaxLength="10" />
+          <Property Name="cEmail" Type="char" MaxLength="20" />
+          <Property Name="cAddress" Type="char" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="eID" />
+          </Key>
+          <Property Name="eID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="eName" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="eDOB" Type="date" />
+          <Property Name="ePhoneNum" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="eIDCardNum" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="eBaseSalary" Type="int" />
+          <Property Name="eKPI" Type="int" />
+          <Property Name="eStartDay" Type="date" />
+          <Property Name="eGrossSalary" Type="int" />
+          <Property Name="ePosition" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="ePassword" Type="char" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="pID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="pName" Type="char" MaxLength="50" />
+          <Property Name="pBrand" Type="char" MaxLength="20" />
+          <Property Name="pDescription" Type="char" MaxLength="100" />
+          <Property Name="pWarranty_time" Type="int" />
+          <Property Name="pQuantity" Type="int" />
+          <Property Name="pPrice" Type="int" />
+        </EntityType>
+        <Association Name="FK__BILL__cID__440B1D61">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="cID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="cID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BILL__eID__44FF419A">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="eID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="eID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Produc__bID__4D94879B">
+          <End Role="BILL" Type="Self.BILL" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bill_Product_Detail" Type="Self.Bill_Product_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILL">
+              <PropertyRef Name="bID" />
+            </Principal>
+            <Dependent Role="Bill_Product_Detail">
+              <PropertyRef Name="bID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Produc__pID__4E88ABD4">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bill_Product_Detail" Type="Self.Bill_Product_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="pID" />
+            </Principal>
+            <Dependent Role="Bill_Product_Detail">
+              <PropertyRef Name="pID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLBMTModelStoreContainer">
+          <EntitySet Name="BILL" EntityType="Self.BILL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill_Product_Detail" EntityType="Self.Bill_Product_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BILL__cID__440B1D61" Association="Self.FK__BILL__cID__440B1D61">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BILL__eID__44FF419A" Association="Self.FK__BILL__eID__44FF419A">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Produc__bID__4D94879B" Association="Self.FK__Bill_Produc__bID__4D94879B">
+            <End Role="BILL" EntitySet="BILL" />
+            <End Role="Bill_Product_Detail" EntitySet="Bill_Product_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Produc__pID__4E88ABD4" Association="Self.FK__Bill_Produc__pID__4E88ABD4">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Bill_Product_Detail" EntitySet="Bill_Product_Detail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLBMTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="bID" />
+          </Key>
+          <Property Name="bID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="eID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="bBUY_Date" Type="DateTime" Precision="0" />
+          <Property Name="bTotalPrice" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__BILL__cID__440B1D61" FromRole="BILL" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__BILL__eID__44FF419A" FromRole="BILL" ToRole="Employee" />
+          <NavigationProperty Name="Bill_Product_Detail" Relationship="Self.FK__Bill_Produc__bID__4D94879B" FromRole="BILL" ToRole="Bill_Product_Detail" />
+        </EntityType>
+        <EntityType Name="Bill_Product_Detail">
+          <Key>
+            <PropertyRef Name="bID" />
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="bID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="pID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bpPrice" Type="Int32" />
+          <Property Name="bpQuantity_Product" Type="Int32" />
+          <NavigationProperty Name="BILL" Relationship="Self.FK__Bill_Produc__bID__4D94879B" FromRole="Bill_Product_Detail" ToRole="BILL" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Bill_Produc__pID__4E88ABD4" FromRole="Bill_Product_Detail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="cID" />
+          </Key>
+          <Property Name="cID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="cPhoneNum" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="cEmail" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="cAddress" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="BILLs" Relationship="Self.FK__BILL__cID__440B1D61" FromRole="Customer" ToRole="BILL" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="eID" />
+          </Key>
+          <Property Name="eID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="eName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="eDOB" Type="DateTime" Precision="0" />
+          <Property Name="ePhoneNum" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="eIDCardNum" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="eBaseSalary" Type="Int32" />
+          <Property Name="eKPI" Type="Int32" />
+          <Property Name="eStartDay" Type="DateTime" Precision="0" />
+          <Property Name="eGrossSalary" Type="Int32" />
+          <Property Name="ePosition" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ePassword" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BILLs" Relationship="Self.FK__BILL__eID__44FF419A" FromRole="Employee" ToRole="BILL" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="pID" />
+          </Key>
+          <Property Name="pID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="pName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="pBrand" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="pDescription" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="pWarranty_time" Type="Int32" />
+          <Property Name="pQuantity" Type="Int32" />
+          <Property Name="pPrice" Type="Int32" />
+          <NavigationProperty Name="Bill_Product_Detail" Relationship="Self.FK__Bill_Produc__pID__4E88ABD4" FromRole="Product" ToRole="Bill_Product_Detail" />
+        </EntityType>
+        <Association Name="FK__BILL__cID__440B1D61">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="cID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="cID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BILL__eID__44FF419A">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="eID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="eID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Produc__bID__4D94879B">
+          <End Role="BILL" Type="Self.BILL" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bill_Product_Detail" Type="Self.Bill_Product_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILL">
+              <PropertyRef Name="bID" />
+            </Principal>
+            <Dependent Role="Bill_Product_Detail">
+              <PropertyRef Name="bID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bill_Produc__pID__4E88ABD4">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bill_Product_Detail" Type="Self.Bill_Product_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="pID" />
+            </Principal>
+            <Dependent Role="Bill_Product_Detail">
+              <PropertyRef Name="pID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLBMTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BILLs" EntityType="Self.BILL" />
+          <EntitySet Name="Bill_Product_Detail" EntityType="Self.Bill_Product_Detail" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK__BILL__cID__440B1D61" Association="Self.FK__BILL__cID__440B1D61">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BILL__eID__44FF419A" Association="Self.FK__BILL__eID__44FF419A">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Produc__bID__4D94879B" Association="Self.FK__Bill_Produc__bID__4D94879B">
+            <End Role="BILL" EntitySet="BILLs" />
+            <End Role="Bill_Product_Detail" EntitySet="Bill_Product_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bill_Produc__pID__4E88ABD4" Association="Self.FK__Bill_Produc__pID__4E88ABD4">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Bill_Product_Detail" EntitySet="Bill_Product_Detail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLBMTModelStoreContainer" CdmEntityContainer="QLBMTEntities">
+          <EntitySetMapping Name="BILLs">
+            <EntityTypeMapping TypeName="QLBMTModel.BILL">
+              <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="bID" ColumnName="bID" />
+                <ScalarProperty Name="cID" ColumnName="cID" />
+                <ScalarProperty Name="eID" ColumnName="eID" />
+                <ScalarProperty Name="bBUY_Date" ColumnName="bBUY_Date" />
+                <ScalarProperty Name="bTotalPrice" ColumnName="bTotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bill_Product_Detail">
+            <EntityTypeMapping TypeName="QLBMTModel.Bill_Product_Detail">
+              <MappingFragment StoreEntitySet="Bill_Product_Detail">
+                <ScalarProperty Name="bID" ColumnName="bID" />
+                <ScalarProperty Name="pID" ColumnName="pID" />
+                <ScalarProperty Name="bpPrice" ColumnName="bpPrice" />
+                <ScalarProperty Name="bpQuantity_Product" ColumnName="bpQuantity_Product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="QLBMTModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="cID" ColumnName="cID" />
+                <ScalarProperty Name="cName" ColumnName="cName" />
+                <ScalarProperty Name="cPhoneNum" ColumnName="cPhoneNum" />
+                <ScalarProperty Name="cEmail" ColumnName="cEmail" />
+                <ScalarProperty Name="cAddress" ColumnName="cAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="QLBMTModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="eID" ColumnName="eID" />
+                <ScalarProperty Name="eName" ColumnName="eName" />
+                <ScalarProperty Name="eDOB" ColumnName="eDOB" />
+                <ScalarProperty Name="ePhoneNum" ColumnName="ePhoneNum" />
+                <ScalarProperty Name="eIDCardNum" ColumnName="eIDCardNum" />
+                <ScalarProperty Name="eBaseSalary" ColumnName="eBaseSalary" />
+                <ScalarProperty Name="eKPI" ColumnName="eKPI" />
+                <ScalarProperty Name="eStartDay" ColumnName="eStartDay" />
+                <ScalarProperty Name="eGrossSalary" ColumnName="eGrossSalary" />
+                <ScalarProperty Name="ePosition" ColumnName="ePosition" />
+                <ScalarProperty Name="ePassword" ColumnName="ePassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="QLBMTModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="pID" ColumnName="pID" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="pBrand" ColumnName="pBrand" />
+                <ScalarProperty Name="pDescription" ColumnName="pDescription" />
+                <ScalarProperty Name="pWarranty_time" ColumnName="pWarranty_time" />
+                <ScalarProperty Name="pQuantity" ColumnName="pQuantity" />
+                <ScalarProperty Name="pPrice" ColumnName="pPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

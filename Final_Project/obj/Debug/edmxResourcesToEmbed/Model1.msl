@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLBMTModelStoreContainer" CdmEntityContainer="QLBMTEntities">
+    <EntitySetMapping Name="BILLs">
+      <EntityTypeMapping TypeName="QLBMTModel.BILL">
+        <MappingFragment StoreEntitySet="BILL">
+          <ScalarProperty Name="bID" ColumnName="bID" />
+          <ScalarProperty Name="cID" ColumnName="cID" />
+          <ScalarProperty Name="eID" ColumnName="eID" />
+          <ScalarProperty Name="bBUY_Date" ColumnName="bBUY_Date" />
+          <ScalarProperty Name="bTotalPrice" ColumnName="bTotalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bill_Product_Detail">
+      <EntityTypeMapping TypeName="QLBMTModel.Bill_Product_Detail">
+        <MappingFragment StoreEntitySet="Bill_Product_Detail">
+          <ScalarProperty Name="bID" ColumnName="bID" />
+          <ScalarProperty Name="pID" ColumnName="pID" />
+          <ScalarProperty Name="bpPrice" ColumnName="bpPrice" />
+          <ScalarProperty Name="bpQuantity_Product" ColumnName="bpQuantity_Product" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="QLBMTModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="cID" ColumnName="cID" />
+          <ScalarProperty Name="cName" ColumnName="cName" />
+          <ScalarProperty Name="cPhoneNum" ColumnName="cPhoneNum" />
+          <ScalarProperty Name="cEmail" ColumnName="cEmail" />
+          <ScalarProperty Name="cAddress" ColumnName="cAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="QLBMTModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="eID" ColumnName="eID" />
+          <ScalarProperty Name="eName" ColumnName="eName" />
+          <ScalarProperty Name="eDOB" ColumnName="eDOB" />
+          <ScalarProperty Name="ePhoneNum" ColumnName="ePhoneNum" />
+          <ScalarProperty Name="eIDCardNum" ColumnName="eIDCardNum" />
+          <ScalarProperty Name="eBaseSalary" ColumnName="eBaseSalary" />
+          <ScalarProperty Name="eKPI" ColumnName="eKPI" />
+          <ScalarProperty Name="eStartDay" ColumnName="eStartDay" />
+          <ScalarProperty Name="eGrossSalary" ColumnName="eGrossSalary" />
+          <ScalarProperty Name="ePosition" ColumnName="ePosition" />
+          <ScalarProperty Name="ePassword" ColumnName="ePassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="QLBMTModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="pID" ColumnName="pID" />
+          <ScalarProperty Name="pName" ColumnName="pName" />
+          <ScalarProperty Name="pBrand" ColumnName="pBrand" />
+          <ScalarProperty Name="pDescription" ColumnName="pDescription" />
+          <ScalarProperty Name="pWarranty_time" ColumnName="pWarranty_time" />
+          <ScalarProperty Name="pQuantity" ColumnName="pQuantity" />
+          <ScalarProperty Name="pPrice" ColumnName="pPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
